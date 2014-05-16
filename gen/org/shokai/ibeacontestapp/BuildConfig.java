@@ -1,6 +1,8 @@
-/** Automatically generated file. DO NOT MODIFY */
+/**
+ * Automatically generated file. DO NOT MODIFY
+ */
 package org.shokai.ibeacontestapp;
 
 public final class BuildConfig {
-    public final static boolean DEBUG = true;
+  public static final boolean DEBUG = true;
 }
