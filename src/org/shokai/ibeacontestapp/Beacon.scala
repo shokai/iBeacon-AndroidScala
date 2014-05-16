@@ -18,9 +18,9 @@ class Beacon(scanRecord:Array[Byte]){
     error = "bad format"
   }
   else{
-    uuid  =  9.to(24).map(i => "%02x".format(scanRecord(i)) ).mkString("-")
-    major = 25.to(26).map(i => "%02x".format(scanRecord(i)) ).mkString("-")
-    minor = 27.to(28).map(i => "%02x".format(scanRecord(i)) ).mkString("-")
+    uuid  =  9.to(24).map(i => "%02x".format(scanRecord(i)).toUpperCase ).mkString("-")
+    major = 25.to(26).map(i => "%02x".format(scanRecord(i)).toUpperCase ).mkString("-")
+    minor = 27.to(28).map(i => "%02x".format(scanRecord(i)).toUpperCase ).mkString("-")
     error = null
   }
 }
