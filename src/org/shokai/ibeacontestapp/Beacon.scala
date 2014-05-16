@@ -10,9 +10,9 @@ class Beacon(scanRecord:Array[Byte]){
     error = "length < 30"
   }
   else if(scanRecord(5) != 0x4c.toByte ||
-    scanRecord(6) != 0x00.toByte ||
-    scanRecord(7) != 0x02.toByte ||
-    scanRecord(8) != 0x15.toByte){
+          scanRecord(6) != 0x00.toByte ||
+          scanRecord(7) != 0x02.toByte ||
+          scanRecord(8) != 0x15.toByte){
     error = "bad format"
   }
   else{
