@@ -23,10 +23,15 @@ class MainActivity extends Activity{
     trace("app start")
     bluetoothAdapter.startLeScan(new BluetoothAdapter.LeScanCallback(){
       override def onLeScan(device:BluetoothDevice, rssi:Int, scanRecord:Array[Byte]){
-        trace(s"rssi: $rssi, records: ${scanRecord.mkString(",")}")
+        val beacon:Beacon = new Beacon(scanRecord)
+        if (beacon.error != null){
+          trace(s"rssi: $rssi, beacon: error=${beacon.error}")
+        }
+        else{
+          trace(s"rssi: $rssi, beacon: uuid=${beacon.uuid} major=${beacon.major} minor=${beacon.minor}")
+        }
       }
     })
-    textViewMsg.setText("はい")
   }
 
   def trace(msg:String){
