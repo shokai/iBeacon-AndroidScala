@@ -23,7 +23,7 @@ class MainActivity extends Activity{
     trace("app start")
     bluetoothAdapter.startLeScan(new BluetoothAdapter.LeScanCallback(){
       override def onLeScan(device:BluetoothDevice, rssi:Int, scanRecord:Array[Byte]){
-        trace(s"rssi: $rssi")
+        trace(s"rssi: $rssi, records: ${scanRecord.mkString(",")}")
       }
     })
     textViewMsg.setText("はい")
