@@ -13,14 +13,13 @@ class MainActivity extends Activity{
   lazy val appName:String = getResources().getString(R.string.app_name)
   lazy val handler:Handler = new Handler()
   lazy val textViewMsg:TextView = findViewById(R.id.textViewMsg).asInstanceOf[TextView]
+  lazy val iBeacon:IBeacon = new IBeacon(this)
 
   override def onCreate(savedInstanceState:Bundle){
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
 
     trace("app start")
-
-    val iBeacon:IBeacon = new IBeacon(this)
 
     iBeacon.onDetect((beacon:Beacon) =>
       trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
