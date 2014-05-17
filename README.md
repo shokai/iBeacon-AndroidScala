@@ -59,7 +59,7 @@ SampleApps
 ### Install
 
     % adb devices
-    % adb install -r IBeaconTestApp-debug.apk
+    % adb install -r iBeaconReader-debug.apk
 
 
 ### Develop

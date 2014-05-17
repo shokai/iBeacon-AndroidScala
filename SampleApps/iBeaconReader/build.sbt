@@ -2,7 +2,7 @@ import android.Keys._
 
 android.Plugin.androidBuild
 
-name := "IBeaconTestApp"
+name := "iBeaconReader"
 
 platformTarget in Android := "android-18"
 

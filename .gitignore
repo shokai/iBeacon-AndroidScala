@@ -2,6 +2,7 @@
 *.log
 *~
 *#*
+*.d
 *.class
 .classpath
 .project
