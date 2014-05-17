@@ -1,5 +1,6 @@
 package org.shokai.ibeacontestapp;
 
+import org.shokai.ibeacon.{IBeacon, Beacon};
 import android.app.Activity;
 import android.content.Context;
 import android.os.{Bundle, Handler};
@@ -21,7 +22,7 @@ class MainActivity extends Activity{
 
     val iBeacon:IBeacon = new IBeacon(this)
 
-    iBeacon.onDetect((beacon) =>
+    iBeacon.onDetect((beacon:Beacon) =>
       trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
     )
 

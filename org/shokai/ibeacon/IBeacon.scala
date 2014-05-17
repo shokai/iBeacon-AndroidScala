@@ -1,4 +1,4 @@
-package org.shokai.ibeacontestapp;
+package org.shokai.ibeacon;
 
 import android.app.Activity;
 import android.content.Context;

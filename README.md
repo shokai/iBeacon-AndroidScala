@@ -25,12 +25,16 @@ copy `org/shokai/ibeacon/IBeacon.scala` into your app.
 
 
 ```scala
+import org.shokai.ibeacon.{IBeacon, Beacon};
+```
+
+```scala
 class MainActivity extends Activity{
 
   override def onCreate(savedInstanceState:Bundle){
     val iBeacon:IBeacon = new IBeacon(this)
 
-    iBeacon.onDetect((beacon) =>
+    iBeacon.onDetect((beacon:Beacon) =>
       trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
     )
   }
