@@ -23,7 +23,7 @@ class MainActivity extends Activity{
     val iBeacon:IBeacon = new IBeacon(this)
 
     iBeacon.onDetect((beacon) =>
-      trace(s"rssi=${beacon.rssi} uuid=${beacon.uuid} major=${beacon.major} minor=${beacon.minor}")
+      trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi} ")
     )
 
   }
