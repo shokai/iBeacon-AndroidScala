@@ -1,0 +1,1 @@
+../../../../../../org/shokai/ibeacon/IBeacon.scala

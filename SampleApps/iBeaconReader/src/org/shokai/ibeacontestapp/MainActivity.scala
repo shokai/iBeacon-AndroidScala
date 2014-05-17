@@ -7,9 +7,9 @@ import android.util.Log;
 import android.widget.{TextView, EditText, Button};
 import android.view.View;
 
-
 class MainActivity extends Activity{
 
+  lazy val appName:String = getResources().getString(R.string.app_name)
   lazy val handler:Handler = new Handler()
   lazy val textViewMsg:TextView = findViewById(R.id.textViewMsg).asInstanceOf[TextView]
 
@@ -29,7 +29,7 @@ class MainActivity extends Activity{
 
   var detectCount:Int = 0
   def trace(msg:String){
-    Log.v("iBeaconTestApp", msg)
+    Log.v(appName, msg)
     handler.post(new Runnable(){
       override def run(){
         textViewMsg.setText(s"${msg} ${"."*(detectCount%3+1)}")
