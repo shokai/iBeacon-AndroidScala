@@ -1,6 +1,7 @@
 package org.shokai.ibeacontestapp;
 
-class Beacon(scanRecord:Array[Byte]){
+class Beacon(_rssi:Int, scanRecord:Array[Byte]){
+  val rssi = _rssi
   var major:String = null
   var minor:String = null
   var uuid:String = null
