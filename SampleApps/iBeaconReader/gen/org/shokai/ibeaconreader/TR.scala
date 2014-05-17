@@ -1,4 +1,4 @@
-package org.shokai.ibeacontestapp
+package org.shokai.ibeaconreader
 
 import scala.language.implicitConversions
 import android.app.{Activity,Dialog}

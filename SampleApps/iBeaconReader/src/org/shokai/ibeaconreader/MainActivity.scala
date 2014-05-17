@@ -1,4 +1,4 @@
-package org.shokai.ibeacontestapp;
+package org.shokai.ibeaconreader;
 
 import org.shokai.ibeacon.{IBeacon, Beacon};
 import android.app.Activity;

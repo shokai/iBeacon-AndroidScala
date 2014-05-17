@@ -5,7 +5,7 @@
  * should not be modified by hand.
  */
 
-package org.shokai.ibeacontestapp;
+package org.shokai.ibeaconreader;
 
 public final class R {
     public static final class attr {
