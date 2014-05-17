@@ -21,7 +21,7 @@ Install Dependencies
 Usage
 -----
 
-copy `org/shokai/ibeacon/IBeacon.scala` into your app.
+copy `IBeacon.scala` into your app.
 
 
 ```scala

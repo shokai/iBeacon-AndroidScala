@@ -1,1 +1,1 @@
-../../../../../../org/shokai/ibeacon/IBeacon.scala
+../../../../../../IBeacon.scala
