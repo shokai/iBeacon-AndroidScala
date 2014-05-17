@@ -35,16 +35,18 @@ class MainActivity extends Activity{
 
   override def onCreate(savedInstanceState:Bundle){
     iBeacon.onDetect((beacon:Beacon) =>
-      trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
+      Log.v("iBeacon", s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
     )
   }
 
 }
 ```
 
-
 SampleApps
 ----------
+
+![sample app](http://shokai.org/archive/file/59e5175520370a366113eb39781639df.png)
+
 
     % cd SampleApps/iBeaconReader
 
