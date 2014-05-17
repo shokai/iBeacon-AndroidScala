@@ -13,7 +13,6 @@ class MainActivity extends Activity{
   lazy val handler:Handler = new Handler()
   lazy val textViewMsg:TextView = findViewById(R.id.textViewMsg).asInstanceOf[TextView]
 
-
   override def onCreate(savedInstanceState:Bundle){
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
@@ -23,17 +22,19 @@ class MainActivity extends Activity{
     val iBeacon:IBeacon = new IBeacon(this)
 
     iBeacon.onDetect((beacon) =>
-      trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi} ")
+      trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
     )
 
   }
 
+  var detectCount:Int = 0
   def trace(msg:String){
     Log.v("iBeaconTestApp", msg)
     handler.post(new Runnable(){
       override def run(){
-        textViewMsg.setText(msg)
+        textViewMsg.setText(s"${msg} ${"."*(detectCount%3+1)}")
       }
     })
+    detectCount += 1
   }
 }
