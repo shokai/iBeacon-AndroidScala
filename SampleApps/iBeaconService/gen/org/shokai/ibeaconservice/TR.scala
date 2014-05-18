@@ -8,7 +8,7 @@ case class TypedResource[A](id: Int)
 case class TypedLayout[A](id: Int)
 
 object TR {
-
+  val btnStart = TypedResource[android.widget.Button](R.id.btnStart)
 
   object layout {
     val main = TypedLayout[android.widget.LinearLayout](R.layout.main)
