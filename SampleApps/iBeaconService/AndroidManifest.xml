@@ -16,7 +16,7 @@
     </activity>
     <service
         android:enabled="true"
-        android:name="org.shokai.ibeaconservice.IBeaconService"
+        android:name="org.shokai.ibeaconservice.IBeaconServiceSample"
         >
     </service>
   </application>
