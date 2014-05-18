@@ -9,9 +9,16 @@ import android.util.Log;
 class IBeaconService extends IntentService("IBeaconService"){
 
   lazy val appName:String = getResources().getString(R.string.app_name)
+  lazy val iBeacon:IBeacon = new IBeacon(this)
+  lazy val notifer:Notifer = new Notifer(appName, this)
 
   override def onHandleIntent(intent:Intent){
     trace("service start")
+
+    iBeacon.onDetect((beacon:Beacon) =>
+      trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
+    )
+
   }
 
   override def onStartCommand(intent:Intent, flags:Int, startId:Int):Int = {
@@ -20,7 +27,7 @@ class IBeaconService extends IntentService("IBeaconService"){
   }
 
   def trace(msg:String){
-    // new Notifer(appName, this).popup(msg)
+    notifer.popup(msg)
     Log.v(appName, msg)
   }
 

@@ -5,7 +5,7 @@ import android.content.Context;
 import android.bluetooth.{BluetoothManager, BluetoothAdapter, BluetoothDevice};
 
 
-class IBeacon(context:Activity){
+class IBeacon(context:Context){
 
   val bluetoothManager:BluetoothManager =
     context.getSystemService(Context.BLUETOOTH_SERVICE).asInstanceOf[BluetoothManager]
