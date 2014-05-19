@@ -54,4 +54,12 @@ class Beacon(_rssi:Int, scanRecord:Array[Byte]){
     error = null
   }
 
+  override def toString:String = {
+    s"UUID=${uuid} Major=${major} Minor=${minor} RSSI=${rssi}"
+  }
+
+  def name:String = {
+    return s"${uuid}.${major}.${minor}"
+  }
+
 }
