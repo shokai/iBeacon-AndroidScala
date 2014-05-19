@@ -34,9 +34,18 @@ class MainActivity extends Activity{
   lazy val iBeacon:IBeacon = new IBeacon(this)
 
   override def onCreate(savedInstanceState:Bundle){
-    iBeacon.onDetect((beacon:Beacon) =>
+
+    // capture all beacon packet
+    iBeacon.onBeacon((beacon:Beacon) =>
       Log.v("iBeacon", s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
     )
+
+
+    // when beacon appear
+    iBeacon.onDetect((beacon:Beacon) =>
+      Log.v("iBeacon", s"detect ${beacon}")
+    )
+
   }
 
 }

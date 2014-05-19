@@ -21,7 +21,7 @@ class MainActivity extends Activity{
 
     trace("app start")
 
-    iBeacon.onDetect((beacon:Beacon) =>
+    iBeacon.onBeacon((beacon:Beacon) =>
       trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
     )
 
