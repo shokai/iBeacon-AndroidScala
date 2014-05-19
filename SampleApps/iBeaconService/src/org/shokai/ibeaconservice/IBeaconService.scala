@@ -15,17 +15,15 @@ class IBeaconService extends Service{
   var handler:Handler = null
 
   override def onCreate{
-    trace("onCreate")
+    print("onCreate")
 
     var thread:HandlerThread = new HandlerThread(appName, Process.THREAD_PRIORITY_BACKGROUND)
     thread.start()
     val looper = thread.getLooper()
     handler = new Handler(looper){
       override def handleMessage(msg:Message){
-        Log.v("iBeaconService", "handleMessage")
-
         iBeacon.onDetect((beacon:Beacon) =>
-          trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
+          print(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
         )
 
       }
@@ -33,7 +31,6 @@ class IBeaconService extends Service{
   }
 
   override def onStartCommand(intent:Intent, flags:Int, startId:Int):Int = {
-    trace("startCommand")
     var msg:Message = handler.obtainMessage()
     msg.arg1 = startId
     handler.sendMessage(msg)
@@ -44,9 +41,9 @@ class IBeaconService extends Service{
     return null
   }
 
-  def trace(msg:String){
-    notifer.popup(msg)
+  def print(msg:String){
     Log.v(appName, msg)
+    notifer.popup(msg)
   }
 
 }

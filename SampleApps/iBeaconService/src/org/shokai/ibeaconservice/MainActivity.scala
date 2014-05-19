@@ -1,6 +1,6 @@
 package org.shokai.ibeaconservice;
 
-import android.app.{Activity, Notification, NotificationManager, PendingIntent};
+import android.app.{Activity, PendingIntent};
 import android.os.Bundle;
 import android.content.{Context, Intent};
 import android.widget.Button;
@@ -16,9 +16,7 @@ class MainActivity extends Activity{
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 
-    Log.v(appName, "app start")
-
-    new Notifer(appName, this).popup("app start")
+    print("app start")
 
     val self = this
 
@@ -30,7 +28,11 @@ class MainActivity extends Activity{
       }
     })
 
-    Log.v(appName, "start intent")
+    print("start intent")
+  }
+
+  def print(msg:String){
+    Log.v(appName, msg)
   }
 
 }

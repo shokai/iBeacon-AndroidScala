@@ -19,16 +19,16 @@ class MainActivity extends Activity{
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
 
-    trace("app start")
+    print("app start")
 
     iBeacon.onBeacon((beacon:Beacon) =>
-      trace(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
+      print(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
     )
 
   }
 
   var detectCount:Int = 0
-  def trace(msg:String){
+  def print(msg:String){
     Log.v(appName, msg)
     handler.post(new Runnable(){
       override def run(){
