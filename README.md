@@ -59,6 +59,10 @@ SampleApps
 
     % cd SampleApps/iBeaconReader
 
+or
+
+    % cd SampleApps/iBeaconService
+
 
 ### Build
 
