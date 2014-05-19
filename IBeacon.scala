@@ -6,6 +6,8 @@ import android.bluetooth.{BluetoothManager, BluetoothAdapter, BluetoothDevice};
 
 class IBeacon(context:Context){
 
+  val VERSION = "0.0.1"
+
   import scala.collection.mutable.Map;
   val beacons = Map.empty[String, Beacon]
   val bluetoothManager:BluetoothManager =
