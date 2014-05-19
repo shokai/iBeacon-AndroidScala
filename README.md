@@ -56,6 +56,8 @@ SampleApps
 
 ![sample app](http://shokai.org/archive/file/59e5175520370a366113eb39781639df.png)
 
+![service app](http://shokai.org/archive/file/3a8bce26f1cc9bbd8ecc57d41d820509.png)
+
 
     % cd SampleApps/iBeaconReader
 
