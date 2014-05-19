@@ -6,7 +6,8 @@ iBeacon for Android Scala
 
 Dependencies
 ------------
-- android-18 SDK (for Android4.3)
+- "android-18" SDK (for Android 4.3)
+- Bluetooth LE
 - scala & sbt
 - [scala android-sdk-plugin](https://github.com/pfn/android-sdk-plugin)
 
@@ -49,6 +50,16 @@ class MainActivity extends Activity{
   }
 
 }
+```
+
+add `user-permission` into `AndroidManifest.xml`
+```xml
+<manifest>
+  <application> ~~ your app ~~ </application>
+  <uses-permission android:name="android.permission.BLUETOOTH" />
+  <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+  <uses-feature android:name="android.hardware.bluetooth_le" android:required="true" />
+</manifest>
 ```
 
 SampleApps
