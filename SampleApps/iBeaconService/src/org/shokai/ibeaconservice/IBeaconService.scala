@@ -42,7 +42,7 @@ class IBeaconService extends Service{
   }
 
   override def onDestroy(){
-    print("stop servicey")
+    print("stop service")
   }
 
 
