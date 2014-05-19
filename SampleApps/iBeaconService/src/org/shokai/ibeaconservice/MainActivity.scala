@@ -11,6 +11,8 @@ class MainActivity extends Activity{
 
   lazy val appName:String = getResources().getString(R.string.app_name)
   lazy val btnStart:Button = findViewById(R.id.btnStart).asInstanceOf[Button]
+  lazy val btnStop:Button = findViewById(R.id.btnStop).asInstanceOf[Button]
+  lazy val serviceIntent:Intent = new Intent(this, classOf[IBeaconService])
 
   override def onCreate(savedInstanceState:Bundle){
     super.onCreate(savedInstanceState);
@@ -22,13 +24,15 @@ class MainActivity extends Activity{
 
     btnStart.setOnClickListener( new View.OnClickListener(){
       override def onClick(v:View){
-        Log.v(appName, "click")
-        val intent:Intent = new Intent(self, classOf[IBeaconService])
-        self.startService(intent)
+        self.startService(serviceIntent)
       }
     })
 
-    print("start intent")
+    btnStop.setOnClickListener( new View.OnClickListener(){
+      override def onClick(v:View){
+        self.stopService(serviceIntent)
+      }
+    })
   }
 
   def print(msg:String){

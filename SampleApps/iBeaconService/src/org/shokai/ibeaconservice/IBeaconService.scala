@@ -15,7 +15,7 @@ class IBeaconService extends Service{
   var handler:Handler = null
 
   override def onCreate{
-    print("onCreate")
+    print("start service")
 
     var thread:HandlerThread = new HandlerThread(appName, Process.THREAD_PRIORITY_BACKGROUND)
     thread.start()
@@ -40,6 +40,11 @@ class IBeaconService extends Service{
   override def onBind(intent:Intent):IBinder = {
     return null
   }
+
+  override def onDestroy(){
+    print("stop service")
+  }
+
 
   def print(msg:String){
     Log.v(appName, msg)

@@ -5,14 +5,14 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     >
-  <TextView
-      android:layout_width="fill_parent"
-      android:layout_height="wrap_content"
-      android:text="Hello World, MainActivity"
-      />
   <Button
       android:id="@+id/btnStart"
       android:text="start service"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent" />
+  <Button
+      android:id="@+id/btnStop"
+      android:text="stop service"
       android:layout_height="wrap_content"
       android:layout_width="match_parent" />
 </LinearLayout>
