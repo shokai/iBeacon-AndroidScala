@@ -4,26 +4,42 @@ import android.app.Activity;
 import android.content.Context;
 import android.bluetooth.{BluetoothManager, BluetoothAdapter, BluetoothDevice};
 
-
 class IBeacon(context:Context){
 
+  import scala.collection.mutable.Map;
+  val beacons = Map.empty[String, Beacon]
   val bluetoothManager:BluetoothManager =
     context.getSystemService(Context.BLUETOOTH_SERVICE).asInstanceOf[BluetoothManager]
   val bluetoothAdapter:BluetoothAdapter = bluetoothManager.getAdapter()
 
   var onDetectCallback:((Beacon) => Unit) = null
+  var onBeaconCallback:((Beacon) => Unit) = null
 
   bluetoothAdapter.startLeScan(new BluetoothAdapter.LeScanCallback(){
     override def onLeScan(device:BluetoothDevice, rssi:Int, scanRecord:Array[Byte]){
       val beacon:Beacon = new Beacon(rssi, scanRecord)
-      if (onDetectCallback != null && beacon.error == null){
-        onDetectCallback(beacon)
+      if(beacon.error != null) return
+      if (onBeaconCallback != null){
+        onBeaconCallback(beacon)
       }
+      if (onDetectCallback != null){
+        if(!beacons.contains(beacon.name) ||
+           beacon.createAt - beacons(beacon.name).createAt > 5000){
+          onDetectCallback(beacon) // detect new beacon
+        }
+      }
+      beacons(beacon.name) = beacon
     }
   })
 
+  // dispatch when beacon appear
   def onDetect(callback:(Beacon) => Unit){
     this.onDetectCallback = callback
+  }
+
+  // dispatch every beacon packet
+  def onBeacon(callback:(Beacon) => Unit){
+    this.onBeaconCallback = callback
   }
 
 }
@@ -34,6 +50,7 @@ class Beacon(_rssi:Int, scanRecord:Array[Byte]){
   var minor:String = null
   var uuid:String = null
   var error:String = "not init"
+  val createAt:Long = System.currentTimeMillis()
 
   if(scanRecord.length < 30){
     error = "not iBeacn (length < 30)"
