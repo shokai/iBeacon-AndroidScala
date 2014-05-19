@@ -15,5 +15,10 @@
       android:text="start service"
       android:layout_height="wrap_content"
       android:layout_width="match_parent" />
+  <Button
+      android:id="@+id/btnStop"
+      android:text="stop service"
+      android:layout_height="wrap_content"
+      android:layout_width="match_parent" />
 </LinearLayout>
 
