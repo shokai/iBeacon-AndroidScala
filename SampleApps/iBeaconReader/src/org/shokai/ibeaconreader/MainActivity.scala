@@ -27,14 +27,14 @@ class MainActivity extends Activity{
 
   }
 
-  var detectCount:Int = 0
+  var count:Int = 0
   def print(msg:String){
     Log.v(appName, msg)
     handler.post(new Runnable(){
       override def run(){
-        textViewMsg.setText(s"${msg} ${"."*(detectCount%3+1)}")
+        textViewMsg.setText(s"${msg} ${"."*(count%3+1)}")
       }
     })
-    detectCount += 1
+    count += 1
   }
 }

@@ -14,7 +14,7 @@ class IBeacon(context:Context){
     context.getSystemService(Context.BLUETOOTH_SERVICE).asInstanceOf[BluetoothManager]
   val bluetoothAdapter:BluetoothAdapter = bluetoothManager.getAdapter()
 
-  var onDetectCallback:((Beacon) => Unit) = null
+  var onDiscoverCallback:((Beacon) => Unit) = null
   var onBeaconCallback:((Beacon) => Unit) = null
 
   bluetoothAdapter.startLeScan(new BluetoothAdapter.LeScanCallback(){
@@ -24,10 +24,10 @@ class IBeacon(context:Context){
       if (onBeaconCallback != null){
         onBeaconCallback(beacon)
       }
-      if (onDetectCallback != null){
+      if (onDiscoverCallback != null){
         if(!beacons.contains(beacon.name) ||
            beacon.createAt - beacons(beacon.name).createAt > 5000){
-          onDetectCallback(beacon) // detect new beacon
+          onDiscoverCallback(beacon) // new beacon
         }
       }
       beacons(beacon.name) = beacon
@@ -35,8 +35,8 @@ class IBeacon(context:Context){
   })
 
   // dispatch when beacon appear
-  def onDetect(callback:(Beacon) => Unit){
-    this.onDetectCallback = callback
+  def onDiscover(callback:(Beacon) => Unit){
+    this.onDiscoverCallback = callback
   }
 
   // dispatch every beacon packet

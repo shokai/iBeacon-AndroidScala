@@ -43,8 +43,8 @@ class MainActivity extends Activity{
 
 
     // when beacon appear
-    iBeacon.onDetect((beacon:Beacon) =>
-      Log.v("iBeacon", s"detect ${beacon}")
+    iBeacon.onDiscover((beacon:Beacon) =>
+      Log.v("iBeacon", s"discover ${beacon}")
     )
 
   }
