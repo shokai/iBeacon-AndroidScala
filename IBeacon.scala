@@ -42,7 +42,7 @@ class IBeacon(context:Context) extends EventEmitter{
   def onDiscover(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
     on("discover", (_beacon) => {
       val beacon = _beacon.asInstanceOf[Beacon]
-      if(beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase()) &&
+      if((uuid == null || beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase())) &&
         (major == null || beacon.major.toUpperCase().equals(major.toUpperCase())) &&
         (minor == null || beacon.minor.toUpperCase().equals(minor.toUpperCase()))){
         callback(beacon)
@@ -56,7 +56,7 @@ class IBeacon(context:Context) extends EventEmitter{
     var last:Long = 0
     on("beacon", (_beacon) => {
       val beacon = _beacon.asInstanceOf[Beacon]
-      if( beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase()) &&
+      if((uuid == null || beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase())) &&
          (major == null || beacon.major.toUpperCase().equals(major.toUpperCase())) &&
          (minor == null || beacon.minor.toUpperCase().equals(minor.toUpperCase())) ){
         rssis = rssis :+ beacon.rssi
