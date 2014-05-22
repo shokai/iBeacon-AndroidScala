@@ -21,7 +21,6 @@ class IBeacon(context:Context) extends EventEmitter{
       emit("beacon", beacon)
       if(!beacons.contains(beacon.name) ||
          beacon.createAt - beacons(beacon.name).createAt > 5000){
-        print(beacon.name)
         emit("discover", beacon) // new beacon
       }
       beacons(beacon.name) = beacon
@@ -40,10 +39,46 @@ class IBeacon(context:Context) extends EventEmitter{
     })
   }
 
+  def onDiscover(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
+    on("discover", (_beacon) => {
+      val beacon = _beacon.asInstanceOf[Beacon]
+      if(beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase()) &&
+        (major == null || beacon.major.toUpperCase().equals(major.toUpperCase())) &&
+        (minor == null || beacon.minor.toUpperCase().equals(minor.toUpperCase()))){
+        callback(beacon)
+      }
+    })
+  }
+
+  def onRange(uuid:String, major:String, minor:String, range:Range, callback:(Beacon) => Unit){
+    val accuracy = 30
+    var rssis = scala.collection.immutable.List.empty[Int]
+    var last:Long = 0
+    on("beacon", (_beacon) => {
+      val beacon = _beacon.asInstanceOf[Beacon]
+      android.util.Log.v("iBeaconService", s"${beacon.rssi}")
+      if( beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase()) &&
+         (major == null || beacon.major.toUpperCase().equals(major.toUpperCase())) &&
+         (minor == null || beacon.minor.toUpperCase().equals(minor.toUpperCase())) ){
+        rssis = rssis :+ beacon.rssi
+        if(rssis.size > accuracy){
+          rssis = rssis.tail
+          beacon.rssi = rssis.reduce((a,b) => a+b)/rssis.size // average
+          if(range.min < beacon.rssi && beacon.rssi < range.max){
+            if(System.currentTimeMillis() - last > 5000){
+              callback(beacon)
+            }
+            last = System.currentTimeMillis()
+          }
+        }
+      }
+    })
+  }
+
 }
 
 class Beacon(_rssi:Int, scanRecord:Array[Byte]){
-  val rssi = _rssi
+  var rssi = _rssi
   var major:String = null
   var minor:String = null
   var uuid:String = null
