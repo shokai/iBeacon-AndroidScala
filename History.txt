@@ -1,3 +1,7 @@
+=== 0.1.0 2013-05-22
+
+* use eventemitter to dispatch "detect" and "discover" events
+
 === 0.0.2 2013-05-20
 
 * rename callback "onDetect -> "onDiscover"
