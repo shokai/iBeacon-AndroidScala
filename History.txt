@@ -1,3 +1,11 @@
+=== 0.2.0 2013-05-22
+
+* implemented regions
+  * onRegion(uuid, major, minor, range, callback)
+  * onImmediate(uuid, major, minor, callback)
+  * onNear(uuid, major, minor, callback)
+  * onFar(uuid, major, minor, callback)
+
 === 0.1.1 2013-05-22
 
 * wrap eventemitter with onDetect and onDiscover methods
