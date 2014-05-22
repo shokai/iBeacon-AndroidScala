@@ -71,7 +71,7 @@ class MainActivity extends Activity{
 ```
 
 
-## Beacon Region
+### Detect Region
 
 ```scala
 // Region by RSSI
