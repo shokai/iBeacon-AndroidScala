@@ -21,7 +21,7 @@ class MainActivity extends Activity{
 
     print("app start")
 
-    iBeacon.on("beacon", (beacon) => {
+    iBeacon.onBeacon((beacon:Beacon) => {
       print(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
     })
 

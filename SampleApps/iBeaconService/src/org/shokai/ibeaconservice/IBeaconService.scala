@@ -22,7 +22,7 @@ class IBeaconService extends Service{
     val looper = thread.getLooper()
     handler = new Handler(looper){
       override def handleMessage(msg:Message){
-        iBeacon.on("discover", (beacon:Beacon) => {
+        iBeacon.onDiscover((beacon) => {
           print(s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
         })
       }

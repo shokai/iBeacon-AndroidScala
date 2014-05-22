@@ -28,6 +28,18 @@ class IBeacon(context:Context) extends EventEmitter{
     }
   })
 
+  def onBeacon(callback:(Beacon) => Unit){
+    on("beacon", (beacon) => {
+      callback(beacon.asInstanceOf[Beacon])
+    })
+  }
+
+  def onDiscover(callback:(Beacon) => Unit){
+    on("discover", (beacon) => {
+      callback(beacon.asInstanceOf[Beacon])
+    })
+  }
+
 }
 
 class Beacon(_rssi:Int, scanRecord:Array[Byte]){
@@ -73,7 +85,7 @@ trait EventEmitter{
   val List = scala.collection.mutable.LinkedList
   var eid = 0
 
-  class Event(_id:Int, _name:String, _callback:(Beacon) => Unit, _once:Boolean){
+  class Event(_id:Int, _name:String, _callback:(Any) => Unit, _once:Boolean){
     var name = _name
     var callback = _callback
     val id = _id
@@ -82,19 +94,19 @@ trait EventEmitter{
 
   var __events = List.empty[Event]
 
-  def on(name:String, callback:(Beacon) => Unit):Int = {
+  def on(name:String, callback:(Any) => Unit):Int = {
     eid += 1
     __events = __events :+ new Event(eid, name, callback, false)
     return eid
   }
 
-  def once(name:String, callback:(Beacon) => Unit):Int = {
+  def once(name:String, callback:(Any) => Unit):Int = {
     eid += 1
     __events = __events :+ new Event(eid, name, callback, true)
     return eid
   }
 
-  def emit(name:String, args:Beacon){
+  def emit(name:String, args:Any){
     var once_ids = List.empty[Int]
     __events.foreach( (e) => {
       if(e.name.equals(name)){
