@@ -50,13 +50,12 @@ class IBeacon(context:Context) extends EventEmitter{
     })
   }
 
-  def onRange(uuid:String, major:String, minor:String, range:Range, callback:(Beacon) => Unit){
+  def onRegion(uuid:String, major:String, minor:String, range:Range, callback:(Beacon) => Unit){
     val accuracy = 30
     var rssis = scala.collection.immutable.List.empty[Int]
     var last:Long = 0
     on("beacon", (_beacon) => {
       val beacon = _beacon.asInstanceOf[Beacon]
-      android.util.Log.v("iBeaconService", s"${beacon.rssi}")
       if( beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase()) &&
          (major == null || beacon.major.toUpperCase().equals(major.toUpperCase())) &&
          (minor == null || beacon.minor.toUpperCase().equals(minor.toUpperCase())) ){

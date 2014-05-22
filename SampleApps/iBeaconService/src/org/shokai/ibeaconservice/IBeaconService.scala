@@ -31,8 +31,8 @@ class IBeaconService extends Service{
           print(s"discover UUID=${beacon.uuid}")
         })
 
-        iBeacon.onRange("805D6740-F575-492A-8668-45E553EB9DF2", "0001", "0001", Range(-70,-50), (beacon:Beacon) => {
-          print(s"range UUID=${beacon.uuid} rssi=${beacon.rssi}")
+        iBeacon.onRegion("805D6740-F575-492A-8668-45E553EB9DF2", "0001", "0001", Range(-70,-50), (beacon:Beacon) => {
+          print(s"region(-70,-50) UUID=${beacon.uuid} rssi=${beacon.rssi}")
         })
 
       }
