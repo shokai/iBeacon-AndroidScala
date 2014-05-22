@@ -1,3 +1,7 @@
+=== 0.1.1 2013-05-22
+
+* wrap eventemitter with onDetect and onDiscover methods
+
 === 0.1.0 2013-05-22
 
 * use eventemitter to dispatch "detect" and "discover" events
