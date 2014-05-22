@@ -9,6 +9,8 @@ class IBeacon(context:Context) extends EventEmitter{
   val VERSION = "0.1.1"
 
   import scala.collection.mutable.Map;
+  import scala.collection.immutable.Range
+
   val beacons = Map.empty[String, Beacon]
   val bluetoothManager:BluetoothManager =
     context.getSystemService(Context.BLUETOOTH_SERVICE).asInstanceOf[BluetoothManager]
@@ -72,6 +74,18 @@ class IBeacon(context:Context) extends EventEmitter{
         }
       }
     })
+  }
+
+  def onFar(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
+    onRegion(uuid, major, minor, Range(-90,-70), callback)
+  }
+
+  def onNear(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
+    onRegion(uuid, major, minor, Range(-70,-20), callback)
+  }
+
+  def onImmediate(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
+    onRegion(uuid, major, minor, Range(-20,0), callback)
   }
 
 }
