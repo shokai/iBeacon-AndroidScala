@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.bluetooth.{BluetoothManager, BluetoothAdapter, BluetoothDevice};
 
-class IBeacon(context:Context){
+class IBeacon(context:Context) extends EventEmitter{
 
   val VERSION = "0.0.2"
 
@@ -14,35 +14,19 @@ class IBeacon(context:Context){
     context.getSystemService(Context.BLUETOOTH_SERVICE).asInstanceOf[BluetoothManager]
   val bluetoothAdapter:BluetoothAdapter = bluetoothManager.getAdapter()
 
-  var onDiscoverCallback:((Beacon) => Unit) = null
-  var onBeaconCallback:((Beacon) => Unit) = null
-
   bluetoothAdapter.startLeScan(new BluetoothAdapter.LeScanCallback(){
     override def onLeScan(device:BluetoothDevice, rssi:Int, scanRecord:Array[Byte]){
       val beacon:Beacon = new Beacon(rssi, scanRecord)
       if(beacon.error != null) return
-      if (onBeaconCallback != null){
-        onBeaconCallback(beacon)
-      }
-      if (onDiscoverCallback != null){
-        if(!beacons.contains(beacon.name) ||
-           beacon.createAt - beacons(beacon.name).createAt > 5000){
-          onDiscoverCallback(beacon) // new beacon
-        }
+      emit("beacon", beacon)
+      if(!beacons.contains(beacon.name) ||
+         beacon.createAt - beacons(beacon.name).createAt > 5000){
+        print(beacon.name)
+        emit("discover", beacon) // new beacon
       }
       beacons(beacon.name) = beacon
     }
   })
-
-  // dispatch when beacon appear
-  def onDiscover(callback:(Beacon) => Unit){
-    this.onDiscoverCallback = callback
-  }
-
-  // dispatch every beacon packet
-  def onBeacon(callback:(Beacon) => Unit){
-    this.onBeaconCallback = callback
-  }
 
 }
 
@@ -79,6 +63,54 @@ class Beacon(_rssi:Int, scanRecord:Array[Byte]){
 
   def name:String = {
     return s"${uuid}.${major}.${minor}"
+  }
+
+}
+
+
+trait EventEmitter{
+
+  val List = scala.collection.mutable.LinkedList
+  var eid = 0
+
+  class Event(_id:Int, _name:String, _callback:(Beacon) => Unit, _once:Boolean){
+    var name = _name
+    var callback = _callback
+    val id = _id
+    var once = _once
+  }
+
+  var __events = List.empty[Event]
+
+  def on(name:String, callback:(Beacon) => Unit):Int = {
+    eid += 1
+    __events = __events :+ new Event(eid, name, callback, false)
+    return eid
+  }
+
+  def once(name:String, callback:(Beacon) => Unit):Int = {
+    eid += 1
+    __events = __events :+ new Event(eid, name, callback, true)
+    return eid
+  }
+
+  def emit(name:String, args:Beacon){
+    var once_ids = List.empty[Int]
+    __events.foreach( (e) => {
+      if(e.name.equals(name)){
+        e.callback(args)
+        if(e.once) once_ids = once_ids :+ e.id
+      }
+    })
+    __events = __events.filter((e) => {
+      !once_ids.contains(e.id)
+    })
+  }
+
+  def removeListener(id:Int){
+    __events = __events.filter((e) => {
+      e.id != id
+    })
   }
 
 }

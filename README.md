@@ -37,15 +37,15 @@ class MainActivity extends Activity{
   override def onCreate(savedInstanceState:Bundle){
 
     // capture all beacon packet
-    iBeacon.onBeacon((beacon:Beacon) =>
+    iBeacon.on("beacon", (beacon:Beacon) => {
       Log.v("iBeacon", s"UUID=${beacon.uuid} Major=${beacon.major} Minor=${beacon.minor} RSSI=${beacon.rssi}")
-    )
+    })
 
 
     // when beacon appear
-    iBeacon.onDiscover((beacon:Beacon) =>
+    iBeacon.on("discover", (beacon:Beacon) => {
       Log.v("iBeacon", s"discover ${beacon}")
-    )
+    })
 
   }
 
