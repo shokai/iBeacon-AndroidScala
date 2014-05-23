@@ -19,6 +19,7 @@ class MainActivity extends Activity{
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 
+    setTitle(s"${appName} (IBeacon.scala v${IBeacon.VERSION})")
     print("app start")
 
     iBeacon.onImmediate(null, null, null, (beacon:Beacon) => {

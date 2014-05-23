@@ -18,6 +18,7 @@ class MainActivity extends Activity{
     super.onCreate(savedInstanceState);
     setContentView(R.layout.main);
 
+    setTitle(s"${appName} (IBeacon.scala v${org.shokai.ibeacon.IBeacon.VERSION})")
     print("app start")
 
     val self = this

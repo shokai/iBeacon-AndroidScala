@@ -4,10 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.bluetooth.{BluetoothManager, BluetoothAdapter, BluetoothDevice};
 
-class IBeacon(context:Context) extends EventEmitter{
-
+object IBeacon{
   val VERSION = "0.2.1"
+}
 
+class IBeacon(context:Context) extends EventEmitter{
   import scala.collection.mutable.Map;
   import scala.collection.immutable.Range
 
