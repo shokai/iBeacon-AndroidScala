@@ -5,7 +5,7 @@ import android.content.Context;
 import android.bluetooth.{BluetoothManager, BluetoothAdapter, BluetoothDevice};
 
 object IBeacon{
-  val VERSION = "0.2.1"
+  val VERSION = "0.2.2"
 }
 
 class IBeacon(context:Context) extends EventEmitter{
