@@ -77,11 +77,11 @@ class IBeacon(context:Context) extends EventEmitter{
   }
 
   def onFar(uuid:String, major:String, minor:String, callback:(Beacon) => Unit):Int = {
-    onRegion(uuid, major, minor, Range(-90,-70), callback)
+    onRegion(uuid, major, minor, Range(-90,-60), callback)
   }
 
   def onNear(uuid:String, major:String, minor:String, callback:(Beacon) => Unit):Int = {
-    onRegion(uuid, major, minor, Range(-70,-20), callback)
+    onRegion(uuid, major, minor, Range(-60,-20), callback)
   }
 
   def onImmediate(uuid:String, major:String, minor:String, callback:(Beacon) => Unit):Int = {
