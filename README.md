@@ -93,6 +93,17 @@ iBeacon.onImmediate("805D6740-F575-492A-8668-45E553EB9DF2", "0001", "0001", (bea
 ```
 
 
+### Remove Listener
+
+```scala
+val eid = iBeacon.onBeacon((beacon:Beacon) => {
+  Log.v("iBeacon", s"UUID=${beacon.uuid}")
+})
+
+iBeacon.removeListener(eid)
+```
+
+
 SampleApps
 ----------
 

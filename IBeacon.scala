@@ -29,19 +29,19 @@ class IBeacon(context:Context) extends EventEmitter{
     }
   })
 
-  def onBeacon(callback:(Beacon) => Unit){
+  def onBeacon(callback:(Beacon) => Unit):Int = {
     on("beacon", (beacon) => {
       callback(beacon.asInstanceOf[Beacon])
     })
   }
 
-  def onDiscover(callback:(Beacon) => Unit){
+  def onDiscover(callback:(Beacon) => Unit):Int = {
     on("discover", (beacon) => {
       callback(beacon.asInstanceOf[Beacon])
     })
   }
 
-  def onDiscover(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
+  def onDiscover(uuid:String, major:String, minor:String, callback:(Beacon) => Unit):Int = {
     on("discover", (_beacon) => {
       val beacon = _beacon.asInstanceOf[Beacon]
       if((uuid == null || beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase())) &&
@@ -52,7 +52,7 @@ class IBeacon(context:Context) extends EventEmitter{
     })
   }
 
-  def onRegion(uuid:String, major:String, minor:String, range:Range, callback:(Beacon) => Unit){
+  def onRegion(uuid:String, major:String, minor:String, range:Range, callback:(Beacon) => Unit):Int = {
     val accuracy = 30
     val rssis = scala.collection.mutable.Queue.empty[Int]
     var last:Long = 0
@@ -76,15 +76,15 @@ class IBeacon(context:Context) extends EventEmitter{
     })
   }
 
-  def onFar(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
+  def onFar(uuid:String, major:String, minor:String, callback:(Beacon) => Unit):Int = {
     onRegion(uuid, major, minor, Range(-90,-70), callback)
   }
 
-  def onNear(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
+  def onNear(uuid:String, major:String, minor:String, callback:(Beacon) => Unit):Int = {
     onRegion(uuid, major, minor, Range(-70,-20), callback)
   }
 
-  def onImmediate(uuid:String, major:String, minor:String, callback:(Beacon) => Unit){
+  def onImmediate(uuid:String, major:String, minor:String, callback:(Beacon) => Unit):Int = {
     onRegion(uuid, major, minor, Range(-20,0), callback)
   }
 
