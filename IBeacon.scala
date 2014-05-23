@@ -54,16 +54,16 @@ class IBeacon(context:Context) extends EventEmitter{
 
   def onRegion(uuid:String, major:String, minor:String, range:Range, callback:(Beacon) => Unit){
     val accuracy = 30
-    var rssis = scala.collection.immutable.List.empty[Int]
+    val rssis = scala.collection.mutable.Queue.empty[Int]
     var last:Long = 0
     on("beacon", (_beacon) => {
       val beacon = _beacon.asInstanceOf[Beacon]
       if((uuid == null || beacon.uuid.replace("-","").equals(uuid.replace("-","").toUpperCase())) &&
          (major == null || beacon.major.toUpperCase().equals(major.toUpperCase())) &&
          (minor == null || beacon.minor.toUpperCase().equals(minor.toUpperCase())) ){
-        rssis = rssis :+ beacon.rssi
+        rssis.enqueue(beacon.rssi)
         if(rssis.size > accuracy){
-          rssis = rssis.tail
+          rssis.dequeue()
           beacon.rssi = rssis.reduce((a,b) => a+b)/rssis.size // average
           if(range.min < beacon.rssi && beacon.rssi < range.max){
             if(System.currentTimeMillis() - last > 5000){
