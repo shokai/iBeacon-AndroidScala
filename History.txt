@@ -1,3 +1,8 @@
+=== 0.2.1 2013-05-23
+
+* implemented removeListener(event_id)
+* use mutable.Queue to get average of RSSI
+
 === 0.2.0 2013-05-22
 
 * implemented regions
